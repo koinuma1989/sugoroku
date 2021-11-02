@@ -325,7 +325,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8317b9e49db593244a5565d91583184e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  panel: {fileID: 519694621807372242, guid: c4cbcbe905ae5574db3cf958ff867792, type: 3}
+  panelPrefab: {fileID: 519694621807372242, guid: c4cbcbe905ae5574db3cf958ff867792,
+    type: 3}
+  playerPrefab: {fileID: 5166242340139369348, guid: dba2791ad50c38748be5b1ab92d9edcd,
+    type: 3}
+  player: {fileID: 0}
+  playerScript: {fileID: 0}
 --- !u!4 &974907544
 Transform:
   m_ObjectHideFlags: 0

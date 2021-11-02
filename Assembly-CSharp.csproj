@@ -62,6 +62,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Script\Dice.cs" />
     <Compile Include="Assets\Script\GameManeger.cs" />
     <Compile Include="Assets\Script\KomaBase.cs" />
     <Compile Include="Assets\Script\MapGenerate.cs" />

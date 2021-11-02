@@ -4,20 +4,31 @@ using UnityEngine;
 
 public class GameManeger : MonoBehaviour
 {
-    public GameObject panel;
+    public GameObject panelPrefab;
+    public GameObject playerPrefab;
+    public GameObject player;
+    public Player playerScript;
 
     void Start()
     {
         // map生成
         foreach (Vector3 pos in MapGenerate.Square5())
         {
-            Instantiate(panel, pos, Quaternion.identity);
+            Instantiate(panelPrefab, pos, Quaternion.identity);
         }
+
+        // player生成
+        player = Instantiate(playerPrefab, new Vector3(0, 0, 0), Quaternion.identity);
+        playerScript = player.GetComponent<Player>();
+
     }
 
-    // Update is called once per frame
+
     void Update()
     {
-
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            StartCoroutine(playerScript.Move(Dice.DiceRoll()));
+        }
     }
 }
