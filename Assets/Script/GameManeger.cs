@@ -8,6 +8,7 @@ public class GameManeger : MonoBehaviour
     public GameObject playerPrefab;
     public GameObject player;
     public Player playerScript;
+    public Camera mainCamera;
 
     void Start()
     {
@@ -21,6 +22,8 @@ public class GameManeger : MonoBehaviour
         player = Instantiate(playerPrefab, new Vector3(0, 0, 0), Quaternion.identity);
         playerScript = player.GetComponent<Player>();
 
+        mainCamera = Camera.main;
+
     }
 
 
@@ -29,6 +32,12 @@ public class GameManeger : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space))
         {
             StartCoroutine(playerScript.Move(Dice.DiceRoll()));
+        }
+
+
+        if (Input.GetKeyDown(KeyCode.C))
+        {
+            mainCamera.transform.LookAt(new Vector3(1f, 1f, 1f));
         }
     }
 }
