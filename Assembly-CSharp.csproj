@@ -69,6 +69,7 @@
     <Compile Include="Assets\Script\MapGenerate.cs" />
     <Compile Include="Assets\Script\Move.cs" />
     <Compile Include="Assets\Script\Player.cs" />
+    <Compile Include="Assets\Script\UIManeger.cs" />
     <Reference Include="UnityEngine">
       <HintPath>C:/Program Files/Unity/Hub/Editor/2019.3.13f1/Editor/Data/Managed/UnityEngine/UnityEngine.dll</HintPath>
     </Reference>

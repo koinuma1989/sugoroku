@@ -8,6 +8,8 @@ public class Player : MonoBehaviour
 {
     public int currentMasuListIndex; // 今現在いる場所。マス配列のindex番号
 
+    public string playerName;
+
     private void Start()
     {
         currentMasuListIndex = 0; // 初期位置

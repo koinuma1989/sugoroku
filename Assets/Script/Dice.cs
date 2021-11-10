@@ -4,8 +4,19 @@ using UnityEngine;
 
 public class Dice : MonoBehaviour
 {
-    public static int DiceRoll()
+    public GameObject uiManegerObject;
+    private UIManeger uiManegerScript;
+
+    private void Start()
     {
-        return Random.Range(0, 6);
+        uiManegerScript = uiManegerObject.GetComponent<UIManeger>();
+        Debug.Log(uiManegerScript);
+    }
+
+    public int DiceRoll()
+    {
+        int diceNum = Random.Range(1, 6);
+        uiManegerScript.diceNumDisplay(diceNum);
+        return diceNum;
     }
 }
