@@ -47,7 +47,7 @@ public class GameManeger : MonoBehaviour
 
 
     //public void playerGaOnajiMasuNotokiIchiChosei()
-    //{
+    //{aa
     //    int[] playerIndexList = new int[] {
     //        playerList[0].GetComponent<Player>().currentMasuListIndex,
     //        playerList[1].GetComponent<Player>().currentMasuListIndex,
