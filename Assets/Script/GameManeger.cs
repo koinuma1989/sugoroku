@@ -45,6 +45,7 @@ public class GameManeger : MonoBehaviour
 
     }
 
+
     //public void playerGaOnajiMasuNotokiIchiChosei()
     //{
     //    int[] playerIndexList = new int[] {
