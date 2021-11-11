@@ -37,6 +37,7 @@ public class Player : MonoBehaviour
             // indexから紐づくposをget
             Vector3 currentPos = MapGenerate.Square5()[currentMasuListIndex];
 
+
             // 移動アニメーション、0.3fかけてcurrentPositionに移動
             transform.DOLocalMove(currentPos, 0.3f);
 
