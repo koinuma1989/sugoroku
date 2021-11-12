@@ -17,13 +17,9 @@ public class Player : MonoBehaviour
 
     public IEnumerator Move(int diceNum)
     {
-        Debug.Log(diceNum);
-
         // 現在の場所からダイスの数だけマス配列を一つずつ進める
         for (int diceAddIndex = currentMasuListIndex + diceNum; diceAddIndex - currentMasuListIndex >= 1;)
         {
-            Debug.Log(diceAddIndex - currentMasuListIndex);
-
             // 1マス進める
             currentMasuListIndex++;
 

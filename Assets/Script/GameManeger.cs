@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+
 
 public class GameManeger : MonoBehaviour
 {
@@ -10,35 +12,30 @@ public class GameManeger : MonoBehaviour
     public string[] playerNameList;
     public Camera mainCamera;
 
+    public GameObject UIManeger;
+    private UIManeger UIManegerScript;
+
     public GameObject diceObject;
     private Dice diceScript;
 
-    private int currentTurnPlayer;
+    private int currentTurnPlayerIndex;
 
 
     private Vector3[] onajiMasuPlayerPos;// プレイヤーが同じマスの時の居場所
 
+    public InputField[] playerNameInputFieldList = new InputField[4];
 
     void Start()
     {
+        UIManegerScript = UIManeger.GetComponent<UIManeger>();
+
+
         // map生成
         foreach (Vector3 pos in MapGenerate.Square5())
         {
             Instantiate(panelPrefab, pos, Quaternion.identity);
         }
 
-        playerNameList = new string[] { "あ", "い", "う", "え" };
-
-        // 4人対戦
-        // player生成
-        for (int index = 0; index < 4; index++)
-        {
-
-            playerList[index] = Instantiate(playerPrefab, new Vector3(0, 0, 0), Quaternion.identity);
-            playerList[index].GetComponent<Player>().playerName = playerNameList[index];
-        }
-
-        Debug.Log(playerList[2].GetComponent<Player>().playerName);
 
         //playerScript = player.GetComponent<Player>();
 
@@ -54,11 +51,38 @@ public class GameManeger : MonoBehaviour
             new Vector3(0.2f, 0, -0.2f)
         };
 
+        // 最初のプレイヤー
+        TurnGet(0);
+
+
     }
 
 
 
+    // playerの名前をインサート
+    public void InsertPlayerName()
+    {
+        playerNameList = new string[] {
+            playerNameInputFieldList[0].text,
+            playerNameInputFieldList[1].text,
+            playerNameInputFieldList[2].text,
+            playerNameInputFieldList[3].text
+        };
+    }
 
+    // player生成
+    public void CreatePlayer()
+    {
+        // 4人対戦限定
+        for (int index = 0; index < 4; index++)
+        {
+            playerList[index] = Instantiate(playerPrefab, new Vector3(0, 0, 0), Quaternion.identity);
+            playerList[index].GetComponent<Player>().playerName = playerNameList[index];
+        }
+    }
+
+
+    // とりあえずこれ動かしとけば同じマスの時とか位置を調整できる
     public void playerGaOnajiMasuNotokiIchiChosei()
     {
         int[] playerIndexList = new int[] {
@@ -68,11 +92,22 @@ public class GameManeger : MonoBehaviour
             playerList[3].GetComponent<Player>().currentMasuListIndex,
         };
 
-        int count = 0;
-        List<int> onajiMasuPlayerIndex = new List<int>();
+        // 最初に全員の位置を現在いるマスの中心に戻す
+        for (int playerNo = 0; playerNo < 4; playerNo++)
+        {
+            playerList[playerNo].transform.position = MapGenerate.Square5()[playerList[playerNo].GetComponent<Player>().currentMasuListIndex];
+        }
 
+        List<int> jogaiList = new List<int>();
         for (int i = 0; i < 4; i++)
         {
+            // 除外リストに登録されてたらcontinue
+            if (jogaiList.IndexOf(i) != -1)
+            {
+                continue;
+            }
+            int count = 0;
+            List<int> onajiMasuPlayerIndex = new List<int>();
             for (int j = 0; j < 4; j++)
             {
                 if (playerIndexList[i] == playerIndexList[j])
@@ -108,23 +143,47 @@ public class GameManeger : MonoBehaviour
                 foreach (int playerNo in onajiMasuPlayerIndex)
                 {
                     playerList[playerNo].transform.position = playerList[playerNo].transform.position + onajiMasuPlayerPos[playerNo];
+
+                    // 確定したプレイヤーは除外リスト
+                    jogaiList.Add(onajiMasuPlayerIndex[playerNo]);
                 }
             }
         }
     }
 
     // 指定したプレイヤーにターンを回す
-    public void turnGet(Player player)
+    public void TurnGet(int getTurnPlayerIndex)
     {
 
+        currentTurnPlayerIndex = getTurnPlayerIndex;
+
+
+        // ターンプレイヤーの表示
+        UIManegerScript.TurnPlayerDisplay(currentTurnPlayerIndex);
+
+    }
+
+    // ターン終了
+    public void TurnEnd()
+    {
+
+        int tmpCurrentTurnPlayerIndex = currentTurnPlayerIndex + 1; //次のプレイヤー
+
+
+        if (tmpCurrentTurnPlayerIndex > 3) //一周したら最初のプレイヤーに
+        {
+            tmpCurrentTurnPlayerIndex = 0;
+        }
+        TurnGet(tmpCurrentTurnPlayerIndex);
     }
 
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            diceScript.DiceRoll();
-            //StartCoroutine(playerScript.Move(Dice.DiceRoll()));
+            Player playerScript = playerList[currentTurnPlayerIndex].GetComponent<Player>();
+            StartCoroutine(playerScript.Move(diceScript.DiceRoll()));
+            TurnEnd();
         }
 
         if (Input.GetKeyDown(KeyCode.K))
@@ -133,10 +192,8 @@ public class GameManeger : MonoBehaviour
 
         }
 
-
-
-        //mainCamera.transform.position = player.transform.position + new Vector3(0, 5f, 0);
-        //mainCamera.transform.LookAt(player.transform.position);
+        //mainCamera.transform.LookAt(playerList[currentTurnPlayerIndex].transform.position);
+        //mainCamera.transform.position = playerList[currentTurnPlayerIndex].transform.position + new Vector3(0, 5f, 0);
 
     }
 }

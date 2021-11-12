@@ -10,13 +10,12 @@ public class Dice : MonoBehaviour
     private void Start()
     {
         uiManegerScript = uiManegerObject.GetComponent<UIManeger>();
-        Debug.Log(uiManegerScript);
     }
 
     public int DiceRoll()
     {
         int diceNum = Random.Range(1, 6);
-        uiManegerScript.diceNumDisplay(diceNum);
+        uiManegerScript.DiceNumDisplay(diceNum);
         return diceNum;
     }
 }
