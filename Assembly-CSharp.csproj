@@ -66,10 +66,15 @@
     <Compile Include="Assets\Script\Dice.cs" />
     <Compile Include="Assets\Script\GameManeger.cs" />
     <Compile Include="Assets\Script\KomaBase.cs" />
+    <Compile Include="Assets\Script\KomaSelect.cs" />
     <Compile Include="Assets\Script\MapGenerate.cs" />
     <Compile Include="Assets\Script\Move.cs" />
     <Compile Include="Assets\Script\Player.cs" />
     <Compile Include="Assets\Script\UIManeger.cs" />
+    <None Include="Assets\AddOns\Mg3D_Food\README.txt" />
+    <None Include="Assets\GameMusicPack_SUITE\Readme_ja.txt" />
+    <None Include="Assets\JP_Apartment\README.txt" />
+    <None Include="Assets\GameMusicPack_SUITE\Readme.txt" />
     <Reference Include="UnityEngine">
       <HintPath>C:/Program Files/Unity/Hub/Editor/2019.3.13f1/Editor/Data/Managed/UnityEngine/UnityEngine.dll</HintPath>
     </Reference>

@@ -9,6 +9,12 @@ public class UIManeger : MonoBehaviour
     public GameObject gameManeger;
     private GameManeger gameManegerScript;
 
+    //プレイヤー名バリデーション用text
+    public Text minyuryokuText;
+
+    //プレイヤー名設定パネル
+    public GameObject playerNameInputPanel;
+
 
     // ダイス目
     public Text diceNumText;
@@ -19,6 +25,7 @@ public class UIManeger : MonoBehaviour
 
     private void Start()
     {
+        minyuryokuText.enabled = false;
         gameManegerScript = gameManeger.GetComponent<GameManeger>();
     }
 
@@ -34,6 +41,27 @@ public class UIManeger : MonoBehaviour
         string playerName = gameManegerScript.playerNameList[turnPlayerIndex];
         turnPlayerAnounceText.text = playerName + "　さんのターンです";
 
+    }
+
+    // プレイヤー名入力画面バリデーション
+    public bool ValidatePlayerNameInput(string[] playerNameList)
+    {
+        // 未入力validate
+        foreach (string playerName in playerNameList)
+        {
+            if (playerName == "")
+            {
+                minyuryokuText.enabled = true;
+                return false;
+            }
+            minyuryokuText.enabled = false;
+        }
+        return true;
+    }
+
+    public void ClosePlayerNameInputPanel()
+    {
+        playerNameInputPanel.SetActive(false);
     }
 
 }

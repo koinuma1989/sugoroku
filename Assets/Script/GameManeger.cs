@@ -68,6 +68,13 @@ public class GameManeger : MonoBehaviour
             playerNameInputFieldList[2].text,
             playerNameInputFieldList[3].text
         };
+
+        // 未入力validate
+        if (UIManegerScript.ValidatePlayerNameInput(playerNameList))
+        {
+            UIManegerScript.ClosePlayerNameInputPanel();
+        };
+
     }
 
     // player生成
