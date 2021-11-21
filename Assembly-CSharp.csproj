@@ -66,10 +66,11 @@
     <Compile Include="Assets\Script\Dice.cs" />
     <Compile Include="Assets\Script\GameManeger.cs" />
     <Compile Include="Assets\Script\KomaBase.cs" />
-    <Compile Include="Assets\Script\KomaSelect.cs" />
+    <Compile Include="Assets\Script\KomaSentaku.cs" />
     <Compile Include="Assets\Script\MapGenerate.cs" />
     <Compile Include="Assets\Script\Move.cs" />
     <Compile Include="Assets\Script\Player.cs" />
+    <Compile Include="Assets\Script\SentakuSareruKoma.cs" />
     <Compile Include="Assets\Script\UIManeger.cs" />
     <None Include="Assets\GameMusicPack_SUITE\Readme_ja.txt" />
     <None Include="Assets\JP_Apartment\README.txt" />

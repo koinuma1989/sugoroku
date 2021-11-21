@@ -52,7 +52,7 @@ public class GameManeger : MonoBehaviour
         };
 
         // 最初のプレイヤー
-        TurnGet(0);
+        //TurnGet(0);
 
 
     }
