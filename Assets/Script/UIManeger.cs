@@ -9,6 +9,10 @@ public class UIManeger : MonoBehaviour
     public GameObject gameManeger;
     private GameManeger gameManegerScript;
 
+    public GameObject komaSelectObj;
+    public KomaSentaku komaSelectScript;
+
+
     //プレイヤー名バリデーション用text
     public Text minyuryokuText;
 
@@ -22,11 +26,23 @@ public class UIManeger : MonoBehaviour
     // 〇〇のターンです
     public Text turnPlayerAnounceText;
 
+    // 駒選択パネル
+    public GameObject komaSentakuPanel;
+
+    //選択される駒
+    public GameObject sentakuKomaObj;
+
 
     private void Start()
     {
         minyuryokuText.enabled = false;
         gameManegerScript = gameManeger.GetComponent<GameManeger>();
+        komaSentakuPanel.SetActive(false);
+        sentakuKomaObj.SetActive(false);
+
+        komaSelectScript = komaSelectObj.GetComponent<KomaSentaku>();
+
+
     }
 
     // ダイス表示
@@ -58,10 +74,19 @@ public class UIManeger : MonoBehaviour
         }
         return true;
     }
+    
 
     public void ClosePlayerNameInputPanel()
     {
         playerNameInputPanel.SetActive(false);
+    }
+
+    public void OpenKomaSelectPanel()
+    {
+        komaSentakuPanel.SetActive(true);
+        sentakuKomaObj.SetActive(true);
+        komaSelectScript.NowPlayerName();
+        komaSelectScript.TitleView();
     }
 
 }

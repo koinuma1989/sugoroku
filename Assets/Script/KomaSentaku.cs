@@ -22,7 +22,6 @@ public class KomaSentaku : MonoBehaviour
 
     private void Start()
     {
-        gameManegerScript = gameManeger.GetComponent<GameManeger>();
     }
 
     //選択中の駒をくるくるさせる
@@ -52,9 +51,9 @@ public class KomaSentaku : MonoBehaviour
     //選択する番を進める
     public void NowPlayerName()
     {
-        sentakuBanCount = sentakuBanCount + 1;
-        Debug.Log(sentakuBanCount);
+        gameManegerScript = gameManeger.GetComponent<GameManeger>();
 
+        sentakuBanCount = sentakuBanCount + 1;
         nowPlayerName = gameManegerScript.playerNameList[sentakuBanCount];
     }
 
@@ -68,16 +67,17 @@ public class KomaSentaku : MonoBehaviour
     public void NamePlateView(Vector3 pos)
     {
         namePlate.GetComponent<Text>().text = nowPlayerName;
-        namePlate.transform.position = pos;
+        
+        
+        namePlate.GetComponent<RectTransform>().position = RectTransformUtility.WorldToScreenPoint(Camera.main, pos);
+        namePlate.GetComponent<RectTransform>().localPosition = namePlate.GetComponent<RectTransform>().localPosition - new Vector3(0, 20.0f, 0);
     }
 
     void Update()
     {
-        TitleView();
-
+        
         if (Input.GetMouseButtonDown(0))
         {
-            TitleView();
             KomaKuru();
             
         }

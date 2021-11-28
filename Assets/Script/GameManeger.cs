@@ -29,14 +29,6 @@ public class GameManeger : MonoBehaviour
     {
         UIManegerScript = UIManeger.GetComponent<UIManeger>();
 
-
-        // map生成
-        foreach (Vector3 pos in MapGenerate.Square5())
-        {
-            Instantiate(panelPrefab, pos, Quaternion.identity);
-        }
-
-
         //playerScript = player.GetComponent<Player>();
 
         mainCamera = Camera.main;
@@ -57,7 +49,14 @@ public class GameManeger : MonoBehaviour
 
     }
 
-
+    // map生成
+    private void mapCreate()
+    {
+        foreach (Vector3 pos in MapGenerate.Square5())
+        {
+            Instantiate(panelPrefab, pos, Quaternion.identity);
+        }
+    }
 
     // playerの名前をインサート
     public void InsertPlayerName()
@@ -73,6 +72,7 @@ public class GameManeger : MonoBehaviour
         if (UIManegerScript.ValidatePlayerNameInput(playerNameList))
         {
             UIManegerScript.ClosePlayerNameInputPanel();
+            UIManegerScript.OpenKomaSelectPanel();
         }
 
     }
