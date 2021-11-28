@@ -389,10 +389,13 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
+  - {fileID: 1786111287}
   - {fileID: 2020769350}
   - {fileID: 904376731}
+  - {fileID: 176639575}
+  - {fileID: 1431378205}
   m_Father: {fileID: 899214365}
-  m_RootOrder: 5
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -425,13 +428,13 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 176639574}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 383113420}
-  m_Father: {fileID: 899214365}
-  m_RootOrder: 4
+  m_Father: {fileID: 139639725}
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -480,7 +483,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 176639577}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1431378204}
+        m_MethodName: NowPlayerName
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &176639577
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1002,7 +1016,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &595532036
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1450,8 +1464,6 @@ RectTransform:
   - {fileID: 1281173943}
   - {fileID: 1049476423}
   - {fileID: 595532036}
-  - {fileID: 1786111287}
-  - {fileID: 176639575}
   - {fileID: 139639725}
   m_Father: {fileID: 0}
   m_RootOrder: 4
@@ -1491,7 +1503,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 139639725}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -1883,7 +1895,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gameManeger: {fileID: 974907542}
   minyuryokuText: {fileID: 1613905269}
-  playerNameInputPanel: {fileID: 0}
+  playerNameInputPanel: {fileID: 595532035}
   diceNumText: {fileID: 1281173944}
   turnPlayerAnounceText: {fileID: 1049476424}
 --- !u!4 &1087072289
@@ -2483,7 +2495,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d0f3a811aea47a4eb1e69eaeba633cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameManeger: {fileID: 0}
+  gameManeger: {fileID: 974907542}
+  namePlate: {fileID: 1786111286}
+  sentakuTitle: {fileID: 904376732}
   komaObjList:
   - {fileID: 1334353767}
   - {fileID: 667799748}
@@ -2499,12 +2513,12 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1431378203}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.0937071, y: 0.116499186, z: -0.3916492}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 22
+  m_Father: {fileID: 139639725}
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1547115131
 PrefabInstance:
@@ -2910,7 +2924,7 @@ GameObject:
   - component: {fileID: 1786111289}
   - component: {fileID: 1786111288}
   m_Layer: 5
-  m_Name: Rin
+  m_Name: SentakuNamePlate
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2923,12 +2937,12 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1786111286}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 899214365}
-  m_RootOrder: 3
+  m_Father: {fileID: 139639725}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -2967,7 +2981,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Rin
+  m_Text: Name
 --- !u!222 &1786111289
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -3169,7 +3183,7 @@ RectTransform:
   m_LocalScale: {x: 0.8, y: 0.7, z: 1}
   m_Children: []
   m_Father: {fileID: 139639725}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}

@@ -73,7 +73,7 @@ public class GameManeger : MonoBehaviour
         if (UIManegerScript.ValidatePlayerNameInput(playerNameList))
         {
             UIManegerScript.ClosePlayerNameInputPanel();
-        };
+        }
 
     }
 
