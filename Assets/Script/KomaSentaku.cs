@@ -53,6 +53,8 @@ public class KomaSentaku : MonoBehaviour
     {
         gameManegerScript = gameManeger.GetComponent<GameManeger>();
 
+        //現在選択されている駒を消す
+        
         sentakuBanCount = sentakuBanCount + 1;
         nowPlayerName = gameManegerScript.playerNameList[sentakuBanCount];
     }

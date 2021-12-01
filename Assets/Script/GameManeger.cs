@@ -77,11 +77,27 @@ public class GameManeger : MonoBehaviour
 
     }
 
+    // 引数として受け取った配列の要素番号を並び替える 
+    public void Shuffle(GameObject[] num)
+    {
+        for (int i = 0; i < num.Length; i++)
+        {
+            //（説明１）現在の要素を預けておく
+            GameObject temp = num[i];
+            //（説明２）入れ替える先をランダムに選ぶ
+            int randomIndex = Random.Range(0, num.Length);
+            //（説明３）現在の要素に上書き
+            num[i] = num[randomIndex];
+            //（説明４）入れ替え元に預けておいた要素を与える
+            num[randomIndex] = temp;
+        }
+    }
+
     // player生成
     public void CreatePlayer()
     {
         // 4人対戦限定
-        for (int index = 0; index < 4; index++)
+        for (int index = 0; index < playerList.Length; index++)
         {
             playerList[index] = Instantiate(playerPrefab, new Vector3(0, 0, 0), Quaternion.identity);
             playerList[index].GetComponent<Player>().playerName = playerNameList[index];

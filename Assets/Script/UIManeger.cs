@@ -75,12 +75,13 @@ public class UIManeger : MonoBehaviour
         return true;
     }
     
-
+    //プレイヤーネーム記入画面非表示
     public void ClosePlayerNameInputPanel()
     {
         playerNameInputPanel.SetActive(false);
     }
 
+    //駒セレクト画面表示
     public void OpenKomaSelectPanel()
     {
         komaSentakuPanel.SetActive(true);
@@ -89,4 +90,9 @@ public class UIManeger : MonoBehaviour
         komaSelectScript.TitleView();
     }
 
+    //順番シャッフル画面表示
+    public void OpenJunbanShuffle()
+    {
+
+    }
 }
