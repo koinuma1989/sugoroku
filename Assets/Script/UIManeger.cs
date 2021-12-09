@@ -19,7 +19,6 @@ public class UIManeger : MonoBehaviour
     //プレイヤー名設定パネル
     public GameObject playerNameInputPanel;
 
-
     // ダイス目
     public Text diceNumText;
 
@@ -31,6 +30,18 @@ public class UIManeger : MonoBehaviour
 
     //選択される駒
     public GameObject sentakuKomaObj;
+
+    //順番シャッフル画面
+    public GameObject junbanGamen;
+
+    //順番画面プレイヤーテキスト
+    public Text[] junbanPlayer = new Text[4];
+
+    //順番シャッフル承諾画面
+    public GameObject junbanShodakuGamen;
+
+
+
 
 
     private void Start()
@@ -74,7 +85,7 @@ public class UIManeger : MonoBehaviour
         }
         return true;
     }
-    
+
     //プレイヤーネーム記入画面非表示
     public void ClosePlayerNameInputPanel()
     {
@@ -90,9 +101,27 @@ public class UIManeger : MonoBehaviour
         komaSelectScript.TitleView();
     }
 
+    //順番シャッフル承諾画面表示
+    public void OpenJunbanShuffleShodaku()
+    {
+        junbanShodakuGamen.SetActive(true);
+    }
+
     //順番シャッフル画面表示
     public void OpenJunbanShuffle()
     {
+        junbanGamen.SetActive(true);
+        JunbanPlayerNameRender();
+    }
 
+    //順番シャッフル画面プレイヤー名表示
+    public void JunbanPlayerNameRender()
+    {
+        int count = 0;
+        foreach (string playerName in gameManegerScript.playerNameList)
+        {
+            junbanPlayer[count].text = playerName + "さん";
+            count++;
+        }
     }
 }

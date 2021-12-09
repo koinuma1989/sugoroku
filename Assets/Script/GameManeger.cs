@@ -74,16 +74,22 @@ public class GameManeger : MonoBehaviour
             UIManegerScript.ClosePlayerNameInputPanel();
             UIManegerScript.OpenKomaSelectPanel();
         }
-
     }
 
-    // 引数として受け取った配列の要素番号を並び替える 
-    public void Shuffle(GameObject[] num)
+    // Playerシャッフル
+    public void PlayerShuffle()
+    {
+        Shuffle(playerNameList);
+    }
+
+
+    // シャッフルメソッド 
+    public void Shuffle(string[] num)
     {
         for (int i = 0; i < num.Length; i++)
         {
             //（説明１）現在の要素を預けておく
-            GameObject temp = num[i];
+            string temp = num[i];
             //（説明２）入れ替える先をランダムに選ぶ
             int randomIndex = Random.Range(0, num.Length);
             //（説明３）現在の要素に上書き
