@@ -71,6 +71,7 @@
     <Compile Include="Assets\Script\Move.cs" />
     <Compile Include="Assets\Script\Player.cs" />
     <Compile Include="Assets\Script\SentakuSareruKoma.cs" />
+    <Compile Include="Assets\Script\StartSceneManeger.cs" />
     <Compile Include="Assets\Script\UIManeger.cs" />
     <None Include="Assets\GameMusicPack_SUITE\Readme_ja.txt" />
     <None Include="Assets\JP_Apartment\README.txt" />
