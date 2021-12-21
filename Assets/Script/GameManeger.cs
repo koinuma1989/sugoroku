@@ -23,7 +23,7 @@ public class GameManeger : MonoBehaviour
 
     private Vector3[] onajiMasuPlayerPos;// プレイヤーが同じマスの時の居場所
 
-    public InputField[] playerNameInputFieldList = new InputField[4];
+    public GameObject[] playerNameInputFieldList = new GameObject[4];
 
     void Start()
     {
@@ -61,11 +61,15 @@ public class GameManeger : MonoBehaviour
     // playerの名前をインサート
     public void InsertPlayerName()
     {
+
+        Debug.Log(playerNameInputFieldList[0].transform.Find("Text Area/Text").GetComponent<Text>().text);
+        return;
+
         playerNameList = new string[] {
-            playerNameInputFieldList[0].text,
-            playerNameInputFieldList[1].text,
-            playerNameInputFieldList[2].text,
-            playerNameInputFieldList[3].text
+            playerNameInputFieldList[0].transform.Find("Text Area/Text").gameObject.ToString(),
+            playerNameInputFieldList[1].transform.Find("Text Area/Text").gameObject.ToString(),
+            playerNameInputFieldList[2].transform.Find("Text Area/Text").gameObject.ToString(),
+            playerNameInputFieldList[3].transform.Find("Text Area/Text").gameObject.ToString(),
         };
 
         // 未入力validate
