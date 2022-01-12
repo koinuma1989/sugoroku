@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 
 public class GameManeger : MonoBehaviour
@@ -25,11 +26,14 @@ public class GameManeger : MonoBehaviour
 
     public GameObject[] playerNameInputFieldList = new GameObject[4];
 
+    public GameObject komaSentakuObj;
+
     void Start()
     {
         UIManegerScript = UIManeger.GetComponent<UIManeger>();
 
-        //playerScript = player.GetComponent<Player>();
+        // 4人対戦限定
+        CreatePlayer(4);
 
         mainCamera = Camera.main;
 
@@ -61,22 +65,27 @@ public class GameManeger : MonoBehaviour
     // playerの名前をインサート
     public void InsertPlayerName()
     {
-
-        Debug.Log(playerNameInputFieldList[0].transform.Find("Text Area/Text").GetComponent<Text>().text);
-        return;
-
         playerNameList = new string[] {
-            playerNameInputFieldList[0].transform.Find("Text Area/Text").gameObject.ToString(),
-            playerNameInputFieldList[1].transform.Find("Text Area/Text").gameObject.ToString(),
-            playerNameInputFieldList[2].transform.Find("Text Area/Text").gameObject.ToString(),
-            playerNameInputFieldList[3].transform.Find("Text Area/Text").gameObject.ToString(),
+            playerNameInputFieldList[0].transform.Find("Text Area/Text").GetComponent<TextMeshProUGUI>().text,
+            playerNameInputFieldList[1].transform.Find("Text Area/Text").GetComponent<TextMeshProUGUI>().text,
+            playerNameInputFieldList[2].transform.Find("Text Area/Text").GetComponent<TextMeshProUGUI>().text,
+            playerNameInputFieldList[3].transform.Find("Text Area/Text").GetComponent<TextMeshProUGUI>().text
         };
 
         // 未入力validate
         if (UIManegerScript.ValidatePlayerNameInput(playerNameList))
         {
+            // player名を各playerスクリプトに記録
+            int i = 0;
+            foreach (GameObject playerObj in playerList)
+            {
+                playerObj.GetComponent<Player>().playerName = playerNameList[i];
+                i++;
+            }
+            i = 0;
+
             UIManegerScript.ClosePlayerNameInputPanel();
-            UIManegerScript.OpenKomaSelectPanel();
+            UIManegerScript.OpenJunbanShuffleShodaku();
         }
     }
 
@@ -104,13 +113,11 @@ public class GameManeger : MonoBehaviour
     }
 
     // player生成
-    public void CreatePlayer()
+    public void CreatePlayer(int playerNinzu)
     {
-        // 4人対戦限定
-        for (int index = 0; index < playerList.Length; index++)
+        for (int index = 0; index < playerNinzu; index++)
         {
             playerList[index] = Instantiate(playerPrefab, new Vector3(0, 0, 0), Quaternion.identity);
-            playerList[index].GetComponent<Player>().playerName = playerNameList[index];
         }
     }
 
@@ -228,5 +235,12 @@ public class GameManeger : MonoBehaviour
         //mainCamera.transform.LookAt(playerList[currentTurnPlayerIndex].transform.position);
         //mainCamera.transform.position = playerList[currentTurnPlayerIndex].transform.position + new Vector3(0, 5f, 0);
 
+    }
+
+    // playerの駒を登録
+    public void komaToroku()
+    {
+        KomaSentaku komaSentakuScript = komaSentakuObj.GetComponent<KomaSentaku>();
+        
     }
 }

@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -117,6 +118,7 @@ public class UIManeger : MonoBehaviour
     //順番シャッフル画面プレイヤー名表示
     public void JunbanPlayerNameRender()
     {
+        gameManegerScript.PlayerShuffle();
         int count = 0;
         foreach (string playerName in gameManegerScript.playerNameList)
         {

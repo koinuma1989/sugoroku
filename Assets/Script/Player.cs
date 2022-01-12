@@ -10,6 +10,10 @@ public class Player : MonoBehaviour
 
     public string playerName;
 
+    public GameObject koma;
+
+    public int junban;
+
     private void Start()
     {
         currentMasuListIndex = 0; // 初期位置
