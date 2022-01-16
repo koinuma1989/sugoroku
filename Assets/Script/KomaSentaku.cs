@@ -8,26 +8,39 @@ public class KomaSentaku : MonoBehaviour
 {
     public GameObject gameManeger;
     private GameManeger gameManegerScript;
+
+    public GameObject UIManeger;
     GameObject clickedGameObject;
 
     public GameObject namePlate;
     public Text sentakuTitle;
     private string nowPlayerName;
+    public Player nowPlayer;
+
+    public GameObject komaBottle;
+    public GameObject komaCabinet;
+    public GameObject komaChair;
+    public GameObject komaCoffee;
+    public GameObject komaLamp;
+    public GameObject komaMicro;
+    public GameObject komaSofer;
 
 
-    private int sentakuBanCount = -1;
+
+
+    private int sentakuBanCount = 0;
 
     public GameObject[] komaObjList = new GameObject[7];
 
 
     private void Start()
     {
+
     }
 
     //選択中の駒をくるくるさせる
     public void KomaKuru()
     {
-        clickedGameObject = null;
 
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit = new RaycastHit();
@@ -48,15 +61,67 @@ public class KomaSentaku : MonoBehaviour
         }
     }
 
+    //駒決定
+    public void KomaKettei(GameObject koma)
+    {
+        switch (koma.name)
+        {
+            case "bottleSelect":
+                koma = komaBottle;
+                break;
+            case "cabinetSelect":
+                koma = komaCabinet;
+                break;
+            case "chairSelect":
+                koma = komaChair;
+                break;
+            case "coffee-potSelect":
+                koma = komaCoffee;
+                break;
+            case "lampSelect":
+                koma = komaLamp;
+                break;
+            case "microwaveSelect":
+                koma = komaMicro;
+                break;
+            case "soferSelect":
+                koma = komaSofer;
+                break;
+        }
+        nowPlayer.koma = koma;
+    }
+
     //選択する番を進める
-    public void NowPlayerName()
+    public void SentakutyuPlayer()
     {
         gameManegerScript = gameManeger.GetComponent<GameManeger>();
 
-        //現在選択されている駒を消す
-        
-        sentakuBanCount = sentakuBanCount + 1;
-        nowPlayerName = gameManegerScript.playerNameList[sentakuBanCount];
+        nowPlayer = gameManegerScript.playerList[sentakuBanCount].GetComponent<Player>();
+        nowPlayerName = nowPlayer.playerName;
+        TitleView();
+
+        if (clickedGameObject != null)
+        {
+            KomaKettei(clickedGameObject);
+            clickedGameObject.SetActive(false);
+            namePlate.GetComponent<Text>().text = "";
+
+            sentakuBanCount++;
+            if (sentakuBanCount < 4)
+            {
+                nowPlayer = gameManegerScript.playerList[sentakuBanCount].GetComponent<Player>();
+                nowPlayerName = nowPlayer.playerName;
+                TitleView();
+            }
+            clickedGameObject = null;
+        }
+
+        //最後の人だったら駒選択画面終了
+        if (sentakuBanCount > 3)
+        {
+            UIManeger UIManegerScript = UIManeger.GetComponent<UIManeger>();
+            UIManegerScript.CloseKomaSelectPanel();
+        }
     }
 
     //タイトル
@@ -69,7 +134,6 @@ public class KomaSentaku : MonoBehaviour
     public void NamePlateView(Vector3 pos)
     {
         namePlate.GetComponent<Text>().text = nowPlayerName;
-        
         
         namePlate.GetComponent<RectTransform>().position = RectTransformUtility.WorldToScreenPoint(Camera.main, pos);
         namePlate.GetComponent<RectTransform>().localPosition = namePlate.GetComponent<RectTransform>().localPosition - new Vector3(0, 20.0f, 0);

@@ -28,6 +28,9 @@ public class GameManeger : MonoBehaviour
 
     public GameObject komaSentakuObj;
 
+    //テスト用
+    public GameObject[] testKomaList = new GameObject[4];
+
     void Start()
     {
         UIManegerScript = UIManeger.GetComponent<UIManeger>();
@@ -51,6 +54,36 @@ public class GameManeger : MonoBehaviour
         //TurnGet(0);
 
 
+        //テスト用
+        StartMainGame();
+    }
+
+    //メインのゲーム開始
+    public void StartMainGame()
+    {
+
+        Debug.Log("start");
+
+
+        //mapの生成
+        mapCreate();
+
+        //駒の配置
+        // テスト用
+        foreach (GameObject koma in testKomaList)
+        {
+            Instantiate(koma, Vector3.zero, Quaternion.identity);
+        }
+        //foreach (GameObject player in playerList)
+        //{
+
+
+
+        //    //本番
+        //    //Instantiate(player.GetComponent<Player>().koma, Vector3.zero, Quaternion.identity);
+        //}
+
+        //各プレイヤーのUI表示
     }
 
     // map生成
@@ -92,23 +125,23 @@ public class GameManeger : MonoBehaviour
     // Playerシャッフル
     public void PlayerShuffle()
     {
-        Shuffle(playerNameList);
+        Shuffle(playerList);
     }
 
 
     // シャッフルメソッド 
-    public void Shuffle(string[] num)
+    public void Shuffle(GameObject[] pObj)
     {
-        for (int i = 0; i < num.Length; i++)
+        for (int i = 0; i < pObj.Length; i++)
         {
             //（説明１）現在の要素を預けておく
-            string temp = num[i];
+            GameObject temp = pObj[i];
             //（説明２）入れ替える先をランダムに選ぶ
-            int randomIndex = Random.Range(0, num.Length);
+            int randomIndex = Random.Range(0, pObj.Length);
             //（説明３）現在の要素に上書き
-            num[i] = num[randomIndex];
+            pObj[i] = pObj[randomIndex];
             //（説明４）入れ替え元に預けておいた要素を与える
-            num[randomIndex] = temp;
+            pObj[randomIndex] = temp;
         }
     }
 
@@ -235,12 +268,5 @@ public class GameManeger : MonoBehaviour
         //mainCamera.transform.LookAt(playerList[currentTurnPlayerIndex].transform.position);
         //mainCamera.transform.position = playerList[currentTurnPlayerIndex].transform.position + new Vector3(0, 5f, 0);
 
-    }
-
-    // playerの駒を登録
-    public void komaToroku()
-    {
-        KomaSentaku komaSentakuScript = komaSentakuObj.GetComponent<KomaSentaku>();
-        
     }
 }

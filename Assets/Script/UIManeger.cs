@@ -13,6 +13,7 @@ public class UIManeger : MonoBehaviour
     public GameObject komaSelectObj;
     public KomaSentaku komaSelectScript;
 
+    public KomaSentaku komaSentaku;
 
     //プレイヤー名バリデーション用text
     public Text minyuryokuText;
@@ -40,8 +41,6 @@ public class UIManeger : MonoBehaviour
 
     //順番シャッフル承諾画面
     public GameObject junbanShodakuGamen;
-
-
 
 
 
@@ -96,10 +95,19 @@ public class UIManeger : MonoBehaviour
     //駒セレクト画面表示
     public void OpenKomaSelectPanel()
     {
+        junbanGamen.SetActive(false);
+
         komaSentakuPanel.SetActive(true);
         sentakuKomaObj.SetActive(true);
-        komaSelectScript.NowPlayerName();
-        komaSelectScript.TitleView();
+        komaSelectScript.SentakutyuPlayer();
+    }
+
+    //駒セレクト画面非表示
+    public void CloseKomaSelectPanel(){
+        komaSentakuPanel.SetActive(false);
+        sentakuKomaObj.SetActive(false);
+
+        gameManegerScript.StartMainGame();
     }
 
     //順番シャッフル承諾画面表示
@@ -111,6 +119,7 @@ public class UIManeger : MonoBehaviour
     //順番シャッフル画面表示
     public void OpenJunbanShuffle()
     {
+        junbanShodakuGamen.SetActive(false);
         junbanGamen.SetActive(true);
         JunbanPlayerNameRender();
     }
@@ -120,9 +129,9 @@ public class UIManeger : MonoBehaviour
     {
         gameManegerScript.PlayerShuffle();
         int count = 0;
-        foreach (string playerName in gameManegerScript.playerNameList)
+        foreach (GameObject playerObj in gameManegerScript.playerList)
         {
-            junbanPlayer[count].text = playerName + "さん";
+            junbanPlayer[count].text = playerObj.GetComponent<Player>().playerName + "さん";
             count++;
         }
     }
