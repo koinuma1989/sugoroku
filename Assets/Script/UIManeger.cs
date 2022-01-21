@@ -42,6 +42,11 @@ public class UIManeger : MonoBehaviour
     //順番シャッフル承諾画面
     public GameObject junbanShodakuGamen;
 
+    // Playerの個人用ステータスパネル
+    public GameObject playerKojinStatusPanel;
+
+    // Playerの資産表示用text
+    public Text playerMoney;
 
 
     private void Start()
@@ -134,5 +139,11 @@ public class UIManeger : MonoBehaviour
             junbanPlayer[count].text = playerObj.GetComponent<Player>().playerName + "さん";
             count++;
         }
+    }
+
+    //ゲーム開始時の各プレイヤーのUI生成
+    public void GameStartPlayerUIRender()
+    {
+        playerKojinStatusPanel
     }
 }

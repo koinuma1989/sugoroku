@@ -69,21 +69,24 @@ public class GameManeger : MonoBehaviour
         mapCreate();
 
         //駒の配置
-        // テスト用
+        // テスト用 最初に各プレイヤーが駒選択しないとだが、めんどくさいのでスタブデータ
+        int testCount = 0;
         foreach (GameObject koma in testKomaList)
         {
-            Instantiate(koma, Vector3.zero, Quaternion.identity);
+            playerList[testCount].GetComponent<Player>().koma = Instantiate(koma, Vector3.zero, Quaternion.identity).gameObject;
+            testCount++;
         }
+        playerGaOnajiMasuNotokiIchiChosei();
+
         //foreach (GameObject player in playerList)
         //{
-
-
 
         //    //本番
         //    //Instantiate(player.GetComponent<Player>().koma, Vector3.zero, Quaternion.identity);
         //}
 
         //各プレイヤーのUI表示
+        UIManegerScript.GameStartPlayerUIRender();
     }
 
     // map生成
@@ -168,7 +171,7 @@ public class GameManeger : MonoBehaviour
         // 最初に全員の位置を現在いるマスの中心に戻す
         for (int playerNo = 0; playerNo < 4; playerNo++)
         {
-            playerList[playerNo].transform.position = MapGenerate.Square5()[playerList[playerNo].GetComponent<Player>().currentMasuListIndex];
+            playerList[playerNo].GetComponent<Player>().koma.transform.position = MapGenerate.Square5()[playerList[playerNo].GetComponent<Player>().currentMasuListIndex];
         }
 
         List<int> jogaiList = new List<int>();
@@ -195,7 +198,7 @@ public class GameManeger : MonoBehaviour
             {
                 for (int playerNo = 0; playerNo < 4; playerNo++)
                 {
-                    playerList[playerNo].transform.position = playerList[playerNo].transform.position + onajiMasuPlayerPos[playerNo];
+                    playerList[playerNo].GetComponent<Player>().koma.transform.position = playerList[playerNo].GetComponent<Player>().koma.transform.position + onajiMasuPlayerPos[playerNo];
                 }
                 return;
             }
@@ -205,7 +208,7 @@ public class GameManeger : MonoBehaviour
             {
                 foreach (int playerNo in onajiMasuPlayerIndex)
                 {
-                    playerList[playerNo].transform.position = playerList[playerNo].transform.position + onajiMasuPlayerPos[playerNo];
+                    playerList[playerNo].GetComponent<Player>().koma.transform.position = playerList[playerNo].GetComponent<Player>().koma.transform.position + onajiMasuPlayerPos[playerNo];
                 }
                 return;
             }
@@ -215,7 +218,7 @@ public class GameManeger : MonoBehaviour
             {
                 foreach (int playerNo in onajiMasuPlayerIndex)
                 {
-                    playerList[playerNo].transform.position = playerList[playerNo].transform.position + onajiMasuPlayerPos[playerNo];
+                    playerList[playerNo].GetComponent<Player>().koma.transform.position = playerList[playerNo].GetComponent<Player>().koma.transform.position + onajiMasuPlayerPos[playerNo];
 
                     // 確定したプレイヤーは除外リスト
                     jogaiList.Add(onajiMasuPlayerIndex[playerNo]);

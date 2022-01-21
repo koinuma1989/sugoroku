@@ -14,6 +14,8 @@ public class Player : MonoBehaviour
 
     public int junban;
 
+    public int money;
+
     private void Start()
     {
         currentMasuListIndex = 0; // 初期位置
