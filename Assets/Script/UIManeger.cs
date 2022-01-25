@@ -8,12 +8,12 @@ using UnityEngine.UI;
 public class UIManeger : MonoBehaviour
 {
     public GameObject gameManeger;
-    private GameManeger gameManegerScript;
 
     public GameObject komaSelectObj;
     public KomaSentaku komaSelectScript;
 
     public KomaSentaku komaSentaku;
+  
 
     //プレイヤー名バリデーション用text
     public Text minyuryokuText;
@@ -52,7 +52,7 @@ public class UIManeger : MonoBehaviour
     private void Start()
     {
         minyuryokuText.enabled = false;
-        gameManegerScript = gameManeger.GetComponent<GameManeger>();
+
         komaSentakuPanel.SetActive(false);
         sentakuKomaObj.SetActive(false);
 
@@ -70,7 +70,8 @@ public class UIManeger : MonoBehaviour
     // ターンプレイヤー表示
     public void TurnPlayerDisplay(int turnPlayerIndex)
     {
-        string playerName = gameManegerScript.playerNameList[turnPlayerIndex];
+        GameManeger gameManegerScript = gameManeger.GetComponent<GameManeger>();
+        string playerName = gameManegerScript.playerList[turnPlayerIndex].GetComponent<Player>().playerName;
         turnPlayerAnounceText.text = playerName + "　さんのターンです";
 
     }
@@ -112,6 +113,7 @@ public class UIManeger : MonoBehaviour
         komaSentakuPanel.SetActive(false);
         sentakuKomaObj.SetActive(false);
 
+        GameManeger gameManegerScript = gameManeger.GetComponent<GameManeger>();
         gameManegerScript.StartMainGame();
     }
 
@@ -132,6 +134,7 @@ public class UIManeger : MonoBehaviour
     //順番シャッフル画面プレイヤー名表示
     public void JunbanPlayerNameRender()
     {
+        GameManeger gameManegerScript = gameManeger.GetComponent<GameManeger>();
         gameManegerScript.PlayerShuffle();
         int count = 0;
         foreach (GameObject playerObj in gameManegerScript.playerList)
@@ -144,6 +147,7 @@ public class UIManeger : MonoBehaviour
     //ゲーム開始時の各プレイヤーのUI生成
     public void GameStartPlayerUIRender()
     {
-        playerKojinStatusPanel
+
+        //Instantiate(playerKojinStatusPanel, Vector3.zero, Quaternion.identity);
     }
 }

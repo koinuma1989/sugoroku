@@ -50,9 +50,6 @@ public class GameManeger : MonoBehaviour
             new Vector3(0.2f, 0, -0.2f)
         };
 
-        // 最初のプレイヤー
-        //TurnGet(0);
-
 
         //テスト用
         StartMainGame();
@@ -73,7 +70,11 @@ public class GameManeger : MonoBehaviour
         int testCount = 0;
         foreach (GameObject koma in testKomaList)
         {
-            playerList[testCount].GetComponent<Player>().koma = Instantiate(koma, Vector3.zero, Quaternion.identity).gameObject;
+            playerList[testCount].GetComponent<Player>().koma = Instantiate(koma, Vector3.zero, Quaternion.identity).gameObject; //テスト用駒
+            playerList[testCount].GetComponent<Player>().playerName = testCount.ToString();
+            playerList[testCount].GetComponent<Player>().junban = testCount;
+
+
             testCount++;
         }
         playerGaOnajiMasuNotokiIchiChosei();
@@ -87,6 +88,9 @@ public class GameManeger : MonoBehaviour
 
         //各プレイヤーのUI表示
         UIManegerScript.GameStartPlayerUIRender();
+
+        // 最初のプレイヤー
+        TurnGet(0);
     }
 
     // map生成
@@ -228,10 +232,10 @@ public class GameManeger : MonoBehaviour
     }
 
     // 指定したプレイヤーにターンを回す
-    public void TurnGet(int getTurnPlayerIndex)
+    public void TurnGet(int junban)
     {
 
-        currentTurnPlayerIndex = getTurnPlayerIndex;
+        currentTurnPlayerIndex = junban;
 
 
         // ターンプレイヤーの表示
