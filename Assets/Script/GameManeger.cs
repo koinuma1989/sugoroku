@@ -19,7 +19,7 @@ public class GameManeger : MonoBehaviour
     public GameObject diceObject;
     private Dice diceScript;
 
-    private int currentTurnPlayerIndex;
+    public int currentTurnPlayerIndex;
 
 
     private Vector3[] onajiMasuPlayerPos;// プレイヤーが同じマスの時の居場所
@@ -30,6 +30,8 @@ public class GameManeger : MonoBehaviour
 
     //テスト用
     public GameObject[] testKomaList = new GameObject[4];
+
+
 
     void Start()
     {
@@ -91,6 +93,8 @@ public class GameManeger : MonoBehaviour
 
         // 最初のプレイヤー
         TurnGet(0);
+        
+
     }
 
     // map生成
@@ -234,7 +238,12 @@ public class GameManeger : MonoBehaviour
     // 指定したプレイヤーにターンを回す
     public void TurnGet(int junban)
     {
-
+        if (playerList[currentTurnPlayerIndex].GetComponent<Player>().status == 1) //休み判定
+        {
+            Debug.Log("お休み中です");
+            // 一回休みであることを表示して次のプレイヤーに
+            //TurnGet(junban++);
+        }
         currentTurnPlayerIndex = junban;
 
 
@@ -261,19 +270,13 @@ public class GameManeger : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            Player playerScript = playerList[currentTurnPlayerIndex].GetComponent<Player>();
-            StartCoroutine(playerScript.Move(diceScript.DiceRoll()));
-            TurnEnd();
+            //Player playerScript = playerList[currentTurnPlayerIndex].GetComponent<Player>();
+            //TurnEnd();
         }
 
-        if (Input.GetKeyDown(KeyCode.K))
-        {
-            playerGaOnajiMasuNotokiIchiChosei();
+        mainCamera.transform.LookAt(playerList[currentTurnPlayerIndex].GetComponent<Player>().koma.transform.position);
+        mainCamera.transform.position = playerList[currentTurnPlayerIndex].GetComponent<Player>().koma.transform.position + new Vector3(1f, 3f, -1f);
 
-        }
-
-        //mainCamera.transform.LookAt(playerList[currentTurnPlayerIndex].transform.position);
-        //mainCamera.transform.position = playerList[currentTurnPlayerIndex].transform.position + new Vector3(0, 5f, 0);
 
     }
 }

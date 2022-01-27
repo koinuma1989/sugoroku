@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
+using UnityEngine.UI;
+
 
 
 public class Player : MonoBehaviour
@@ -16,9 +18,23 @@ public class Player : MonoBehaviour
 
     public int money;
 
+    private GameObject eventManegerObj;
+
+    public int status;
+
+
     private void Start()
     {
         currentMasuListIndex = 0; // 初期位置
+
+        eventManegerObj = GameObject.Find("EventManeger");
+
+        status = 0;
+    }
+
+    public void MoveStart(int diceNum)
+    {
+        StartCoroutine(Move(diceNum));
     }
 
     public IEnumerator Move(int diceNum)
@@ -40,10 +56,20 @@ public class Player : MonoBehaviour
             Vector3 currentPos = MapGenerate.Square5()[currentMasuListIndex];
 
             // 移動アニメーション、0.3fかけてcurrentPositionに移動
-            transform.DOLocalMove(currentPos, 0.3f);
+            koma.transform.DOLocalMove(currentPos, 0.3f);
 
             // 駒の移動が速すぎるので0.7f待機
             yield return new WaitForSeconds(0.7f);
         }
+
+        //止まったマスのイベントが発生
+        eventManegerObj.GetComponent<EventManager>().EventStart(currentMasuListIndex);
+
+        //イベント処理終了後にちょっと待ってから次のプレイヤーターン
+        yield return new WaitForSeconds(1.5f);
+
+        Debug.Log(162877);
+
     }
+
 }

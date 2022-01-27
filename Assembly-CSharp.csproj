@@ -86,7 +86,9 @@
     <Compile Include="Assets\Modern UI Pack\Scripts\UIElementInFront.cs" />
     <Compile Include="Assets\Modern UI Pack\Scripts\UIGradient.cs" />
     <Compile Include="Assets\Script\CameraObject.cs" />
+    <Compile Include="Assets\Script\Common.cs" />
     <Compile Include="Assets\Script\Dice.cs" />
+    <Compile Include="Assets\Script\EventManager.cs" />
     <Compile Include="Assets\Script\GameManeger.cs" />
     <Compile Include="Assets\Script\KomaBase.cs" />
     <Compile Include="Assets\Script\KomaSentaku.cs" />

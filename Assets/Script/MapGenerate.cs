@@ -4,6 +4,34 @@ using UnityEngine;
 
 public class MapGenerate : MonoBehaviour
 {
+    public static int[] masuEventList = new int[16] //マスのイベントID
+    {
+        1,
+        2,
+        2,
+        2,
+        2,
+        0,
+        0,
+        3,
+        1,
+        0,
+        0,
+        0,
+        2,
+        3,
+        0,
+        1,
+    };
+
+    public static string[] eventList = new string[4]
+    {
+        "普通マスです",
+        "1回休みです",
+        "もう一回ダイスを振れます",
+        "ダイスを振った分だけ戻ります"
+    };
+
     // 1辺5マスの四角いマップの生成メソッド
     public static Vector3[] Square5()
     {

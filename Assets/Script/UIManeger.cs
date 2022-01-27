@@ -21,9 +21,6 @@ public class UIManeger : MonoBehaviour
     //プレイヤー名設定パネル
     public GameObject playerNameInputPanel;
 
-    // ダイス目
-    public Text diceNumText;
-
     // 〇〇のターンです
     public Text turnPlayerAnounceText;
 
@@ -64,8 +61,13 @@ public class UIManeger : MonoBehaviour
     // ダイス表示
     public void DiceNumDisplay(int diceNum)
     {
-        diceNumText.text = diceNum.ToString();
+
+
+        //diceGamen.SetActive(true);
+
+        //diceNumText.text = diceNum.ToString();
     }
+    
 
     // ターンプレイヤー表示
     public void TurnPlayerDisplay(int turnPlayerIndex)
