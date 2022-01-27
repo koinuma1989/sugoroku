@@ -8,6 +8,11 @@ using TMPro;
 public class GameManeger : MonoBehaviour
 {
     public GameObject panelPrefab;
+    public GameObject plusPanelPrefab;
+    public GameObject minusPanelPrefab;
+    public GameObject yasumiPanelPrefab;
+
+
     public GameObject playerPrefab;
     public GameObject[] playerList = new GameObject[4];
     public string[] playerNameList;
@@ -21,8 +26,14 @@ public class GameManeger : MonoBehaviour
 
     public int currentTurnPlayerIndex;
 
+    public GameObject eventManeger;
 
-    private Vector3[] onajiMasuPlayerPos;// プレイヤーが同じマスの時の居場所
+    public Text victoryPlayerText;
+
+    private Vector3[] onajiMasuPlayerPos4;// プレイヤーが同じマスの時の居場所
+    private Vector3[] onajiMasuPlayerPos3;// プレイヤーが同じマスの時の居場所
+    private Vector3[] onajiMasuPlayerPos2;// プレイヤーが同じマスの時の居場所
+
 
     public GameObject[] playerNameInputFieldList = new GameObject[4];
 
@@ -44,14 +55,26 @@ public class GameManeger : MonoBehaviour
 
         diceScript = diceObject.GetComponent<Dice>();
 
-        // プレイヤーが同じマスの時の居場所
-        onajiMasuPlayerPos = new Vector3[4] {
+        // 4人のプレイヤーが同じマスの時の居場所
+        onajiMasuPlayerPos4 = new Vector3[4] {
             new Vector3(-0.2f, 0, 0.2f),
             new Vector3(0.2f, 0, 0.2f),
             new Vector3(-0.2f, 0, -0.2f),
             new Vector3(0.2f, 0, -0.2f)
         };
 
+        // 3人のプレイヤーが同じマスの時の居場所
+        onajiMasuPlayerPos3 = new Vector3[3] {
+            new Vector3(-0.2f, 0, 0.2f),
+            new Vector3(0.2f, 0, 0.2f),
+            new Vector3(0f, 0, -0.2f)
+        };
+
+        // 2人のプレイヤーが同じマスの時の居場所
+        onajiMasuPlayerPos2 = new Vector3[2] {
+            new Vector3(-0.2f, 0, 0),
+            new Vector3(0.2f, 0, 0),
+        };
 
         //テスト用
         StartMainGame();
@@ -100,9 +123,24 @@ public class GameManeger : MonoBehaviour
     // map生成
     private void mapCreate()
     {
-        foreach (Vector3 pos in MapGenerate.Square5())
+        int count = 0;
+        foreach (Vector3 pos in MapGenerate.mapVector3Array)
         {
-            Instantiate(panelPrefab, pos, Quaternion.identity);
+            if (count == 1 || count == 12)
+            {
+                Instantiate(plusPanelPrefab, pos, new Quaternion(0, 180f, 0f, 0f));
+            }
+            else if (count == 3 || count == 8)
+            {
+                Instantiate(yasumiPanelPrefab, pos, new Quaternion(0, 180f, 0f, 0f));
+            }
+            else if (count == 7 || count == 13)
+            {
+                Instantiate(minusPanelPrefab, pos, new Quaternion(0, 180f, 0f, 0f));
+            }else{
+                Instantiate(panelPrefab, pos, Quaternion.identity);
+            }
+            count++;
         }
     }
 
@@ -179,7 +217,7 @@ public class GameManeger : MonoBehaviour
         // 最初に全員の位置を現在いるマスの中心に戻す
         for (int playerNo = 0; playerNo < 4; playerNo++)
         {
-            playerList[playerNo].GetComponent<Player>().koma.transform.position = MapGenerate.Square5()[playerList[playerNo].GetComponent<Player>().currentMasuListIndex];
+            playerList[playerNo].GetComponent<Player>().koma.transform.position = MapGenerate.mapVector3Array[playerList[playerNo].GetComponent<Player>().currentMasuListIndex];
         }
 
         List<int> jogaiList = new List<int>();
@@ -206,7 +244,7 @@ public class GameManeger : MonoBehaviour
             {
                 for (int playerNo = 0; playerNo < 4; playerNo++)
                 {
-                    playerList[playerNo].GetComponent<Player>().koma.transform.position = playerList[playerNo].GetComponent<Player>().koma.transform.position + onajiMasuPlayerPos[playerNo];
+                    playerList[playerNo].GetComponent<Player>().koma.transform.position = playerList[playerNo].GetComponent<Player>().koma.transform.position + onajiMasuPlayerPos4[playerNo];
                 }
                 return;
             }
@@ -214,9 +252,12 @@ public class GameManeger : MonoBehaviour
             // この時点で3人同じ場所でも即終了
             if (count == 3)
             {
+                int posCount = 0;
+
                 foreach (int playerNo in onajiMasuPlayerIndex)
                 {
-                    playerList[playerNo].GetComponent<Player>().koma.transform.position = playerList[playerNo].GetComponent<Player>().koma.transform.position + onajiMasuPlayerPos[playerNo];
+                    playerList[playerNo].GetComponent<Player>().koma.transform.position = playerList[playerNo].GetComponent<Player>().koma.transform.position + onajiMasuPlayerPos3[posCount];
+                    posCount++;
                 }
                 return;
             }
@@ -224,12 +265,16 @@ public class GameManeger : MonoBehaviour
             // ２人一緒の時はもう一組あるかもしれないので終わらない
             if (count == 2)
             {
+                int posCount = 0;
+
                 foreach (int playerNo in onajiMasuPlayerIndex)
                 {
-                    playerList[playerNo].GetComponent<Player>().koma.transform.position = playerList[playerNo].GetComponent<Player>().koma.transform.position + onajiMasuPlayerPos[playerNo];
+                    playerList[playerNo].GetComponent<Player>().koma.transform.position = playerList[playerNo].GetComponent<Player>().koma.transform.position + onajiMasuPlayerPos2[posCount];
+                    posCount++;
 
                     // 確定したプレイヤーは除外リスト
-                    jogaiList.Add(onajiMasuPlayerIndex[playerNo]);
+                    jogaiList.Add(playerNo);
+                    Debug.Log(jogaiList);
                 }
             }
         }
@@ -238,17 +283,39 @@ public class GameManeger : MonoBehaviour
     // 指定したプレイヤーにターンを回す
     public void TurnGet(int junban)
     {
-        if (playerList[currentTurnPlayerIndex].GetComponent<Player>().status == 1) //休み判定
-        {
-            Debug.Log("お休み中です");
-            // 一回休みであることを表示して次のプレイヤーに
-            //TurnGet(junban++);
-        }
-        currentTurnPlayerIndex = junban;
+        eventManeger.GetComponent<EventManager>().eventTextAnouce.SetActive(false);
 
+        if (playerList[junban].GetComponent<Player>().status == 1) //休み判定
+        {
+            diceScript.diceStartBtn.SetActive(false);
+
+            StartCoroutine(IkkaiYasumi(junban));
+        }
+
+        //現在のターンプレイヤーとして設定
+        currentTurnPlayerIndex = junban;
 
         // ターンプレイヤーの表示
         UIManegerScript.TurnPlayerDisplay(currentTurnPlayerIndex);
+
+        //表示のリセット
+        diceScript.ResetDice();
+    }
+    
+    private IEnumerator IkkaiYasumi(int junban)
+    {
+        // 一回休みであることを表示して次のプレイヤーに
+        eventManeger.GetComponent<EventManager>().eventTextAnouce.SetActive(true);
+        eventManeger.GetComponent<EventManager>().eventText.text = "このターンはお休みです";
+
+        playerList[junban].GetComponent<Player>().status = 0;
+        junban++;
+        if (junban + 1 >= 4)
+        {
+            junban = 0;
+        }
+        yield return new WaitForSeconds(1.5f);
+        TurnGet(junban);
 
     }
 
@@ -268,15 +335,16 @@ public class GameManeger : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            //Player playerScript = playerList[currentTurnPlayerIndex].GetComponent<Player>();
-            //TurnEnd();
-        }
 
         mainCamera.transform.LookAt(playerList[currentTurnPlayerIndex].GetComponent<Player>().koma.transform.position);
         mainCamera.transform.position = playerList[currentTurnPlayerIndex].GetComponent<Player>().koma.transform.position + new Vector3(1f, 3f, -1f);
 
 
+    }
+
+
+    public void Victory(string playerName)
+    {
+        victoryPlayerText.text = playerName + "さんの勝利です！";
     }
 }

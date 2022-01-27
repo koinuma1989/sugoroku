@@ -47,3 +47,6 @@ MonoBehaviour:
   playerName: 
   koma: {fileID: 0}
   junban: 0
+  money: 0
+  eventText: {fileID: 0}
+  status: 0

@@ -57,16 +57,6 @@ public class UIManeger : MonoBehaviour
 
 
     }
-
-    // ダイス表示
-    public void DiceNumDisplay(int diceNum)
-    {
-
-
-        //diceGamen.SetActive(true);
-
-        //diceNumText.text = diceNum.ToString();
-    }
     
 
     // ターンプレイヤー表示

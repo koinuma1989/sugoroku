@@ -13,33 +13,35 @@ public class EventManager : MonoBehaviour
 
     public GameObject diceManagerObj;
 
-    public void EventStart(int currentMasuListIndex)
+    public bool EventStart(int currentMasuListIndex)
     {
         int eventId = MapGenerate.masuEventList[currentMasuListIndex];
         eventTextAnouce.SetActive(true);
-        Debug.Log(eventId);
         int currentPlayerId = gameManegerObj.GetComponent<GameManeger>().currentTurnPlayerIndex;
 
         switch (eventId)
         {
             case 0://普通マス
                 eventText.text = MapGenerate.eventList[eventId];
-                break;
+                return true;
 
             case 1: //一回休み
                 eventText.text = MapGenerate.eventList[eventId];
                 gameManegerObj.GetComponent<GameManeger>().playerList[currentPlayerId].GetComponent<Player>().status = 1;
-                break;
+                return true;
 
             case 2: //ダイスもう一回
                 eventText.text = MapGenerate.eventList[eventId];
                 OneMoreDicePlus();
-                break;
+                return false;
 
             case 3: //ダイス振って戻る
                 eventText.text = MapGenerate.eventList[eventId];
-                break;
+                OneMoreDiceMinus();
+                return false;
 
+            default:
+                return false;
         }
     }
 
@@ -50,6 +52,7 @@ public class EventManager : MonoBehaviour
 
     private void OneMoreDiceMinus()
     {
-
+        diceManagerObj.GetComponent<Dice>().MinusDiceRoll(true);
     }
+
 }
