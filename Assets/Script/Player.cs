@@ -109,7 +109,7 @@ public class Player : MonoBehaviour
         {
             // 1マス戻る
             currentMasuListIndex--;
-            
+
             // indexから紐づくposをget
             Vector3 currentPos = MapGenerate.mapVector3Array[currentMasuListIndex];
 
@@ -137,7 +137,9 @@ public class Player : MonoBehaviour
     private void NextPlayer()
     {
         int nextPlayer = junban + 1;
-        eventManegerObj.GetComponent<EventManager>().eventTextAnouce.SetActive(false) ;
+        eventManegerObj.GetComponent<EventManager>().eventTextAnouce.SetActive(false);
+        Debug.Log(junban);
+        Debug.Log(nextPlayer);
 
 
         if (nextPlayer >= 4)

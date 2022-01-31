@@ -134,18 +134,18 @@ public class KomaSentaku : MonoBehaviour
     public void NamePlateView(Vector3 pos)
     {
         namePlate.GetComponent<Text>().text = nowPlayerName;
-        
+
         namePlate.GetComponent<RectTransform>().position = RectTransformUtility.WorldToScreenPoint(Camera.main, pos);
         namePlate.GetComponent<RectTransform>().localPosition = namePlate.GetComponent<RectTransform>().localPosition - new Vector3(0, 20.0f, 0);
     }
 
     void Update()
     {
-        
+
         if (Input.GetMouseButtonDown(0))
         {
             KomaKuru();
-            
+
         }
     }
 }

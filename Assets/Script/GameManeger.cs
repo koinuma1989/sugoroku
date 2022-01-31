@@ -42,7 +42,7 @@ public class GameManeger : MonoBehaviour
     //テスト用
     public GameObject[] testKomaList = new GameObject[4];
 
-
+    private bool isStart;
 
     void Start()
     {
@@ -76,33 +76,22 @@ public class GameManeger : MonoBehaviour
             new Vector3(0.2f, 0, 0),
         };
 
-        //テスト用
-        StartMainGame();
     }
 
     //メインのゲーム開始
     public void StartMainGame()
     {
-
-        Debug.Log("start");
-
-
         //mapの生成
         mapCreate();
 
         //駒の配置
-        // テスト用 最初に各プレイヤーが駒選択しないとだが、めんどくさいのでスタブデータ
-        int testCount = 0;
-        foreach (GameObject koma in testKomaList)
+        foreach (GameObject player in playerList)
         {
-            playerList[testCount].GetComponent<Player>().koma = Instantiate(koma, Vector3.zero, Quaternion.identity).gameObject; //テスト用駒
-            playerList[testCount].GetComponent<Player>().playerName = testCount.ToString();
-            playerList[testCount].GetComponent<Player>().junban = testCount;
-
-
-            testCount++;
+            player.GetComponent<Player>().koma = Instantiate(player.GetComponent<Player>().koma, Vector3.zero, Quaternion.identity);
         }
         playerGaOnajiMasuNotokiIchiChosei();
+
+        isStart = true;
 
         //foreach (GameObject player in playerList)
         //{
@@ -116,7 +105,7 @@ public class GameManeger : MonoBehaviour
 
         // 最初のプレイヤー
         TurnGet(0);
-        
+
 
     }
 
@@ -129,18 +118,31 @@ public class GameManeger : MonoBehaviour
             if (count == 1 || count == 12)
             {
                 Instantiate(plusPanelPrefab, pos, new Quaternion(0, 180f, 0f, 0f));
+                count++;
+
+                continue;
             }
             else if (count == 3 || count == 8)
             {
                 Instantiate(yasumiPanelPrefab, pos, new Quaternion(0, 180f, 0f, 0f));
+                count++;
+
+                continue;
             }
             else if (count == 7 || count == 13)
             {
                 Instantiate(minusPanelPrefab, pos, new Quaternion(0, 180f, 0f, 0f));
-            }else{
-                Instantiate(panelPrefab, pos, Quaternion.identity);
+                count++;
+
+                continue;
             }
-            count++;
+            else
+            {
+                Instantiate(panelPrefab, pos, Quaternion.identity);
+                count++;
+
+                continue;
+            }
         }
     }
 
@@ -183,14 +185,12 @@ public class GameManeger : MonoBehaviour
     {
         for (int i = 0; i < pObj.Length; i++)
         {
-            //（説明１）現在の要素を預けておく
             GameObject temp = pObj[i];
-            //（説明２）入れ替える先をランダムに選ぶ
             int randomIndex = Random.Range(0, pObj.Length);
-            //（説明３）現在の要素に上書き
             pObj[i] = pObj[randomIndex];
-            //（説明４）入れ替え元に預けておいた要素を与える
             pObj[randomIndex] = temp;
+
+            playerList[i].GetComponent<Player>().junban = i;
         }
     }
 
@@ -274,7 +274,6 @@ public class GameManeger : MonoBehaviour
 
                     // 確定したプレイヤーは除外リスト
                     jogaiList.Add(playerNo);
-                    Debug.Log(jogaiList);
                 }
             }
         }
@@ -283,6 +282,7 @@ public class GameManeger : MonoBehaviour
     // 指定したプレイヤーにターンを回す
     public void TurnGet(int junban)
     {
+        playerGaOnajiMasuNotokiIchiChosei();
         eventManeger.GetComponent<EventManager>().eventTextAnouce.SetActive(false);
 
         if (playerList[junban].GetComponent<Player>().status == 1) //休み判定
@@ -301,7 +301,7 @@ public class GameManeger : MonoBehaviour
         //表示のリセット
         diceScript.ResetDice();
     }
-    
+
     private IEnumerator IkkaiYasumi(int junban)
     {
         // 一回休みであることを表示して次のプレイヤーに
@@ -335,9 +335,12 @@ public class GameManeger : MonoBehaviour
 
     void Update()
     {
+        if (isStart)
+        {
+            mainCamera.transform.LookAt(playerList[currentTurnPlayerIndex].GetComponent<Player>().koma.transform.position);
+            mainCamera.transform.position = playerList[currentTurnPlayerIndex].GetComponent<Player>().koma.transform.position + new Vector3(1f, 3f, -1f);
+        }
 
-        mainCamera.transform.LookAt(playerList[currentTurnPlayerIndex].GetComponent<Player>().koma.transform.position);
-        mainCamera.transform.position = playerList[currentTurnPlayerIndex].GetComponent<Player>().koma.transform.position + new Vector3(1f, 3f, -1f);
 
 
     }

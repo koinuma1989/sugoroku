@@ -13,13 +13,15 @@ public class UIManeger : MonoBehaviour
     public KomaSentaku komaSelectScript;
 
     public KomaSentaku komaSentaku;
-  
+
 
     //プレイヤー名バリデーション用text
     public Text minyuryokuText;
 
     //プレイヤー名設定パネル
     public GameObject playerNameInputPanel;
+
+    public GameObject turnAnouce;
 
     // 〇〇のターンです
     public Text turnPlayerAnounceText;
@@ -45,6 +47,12 @@ public class UIManeger : MonoBehaviour
     // Playerの資産表示用text
     public Text playerMoney;
 
+    public Camera mainCamera;
+
+    public GameObject diceGamen;
+    public GameObject diceStartBtn;
+    public GameObject diceBtn;
+
 
     private void Start()
     {
@@ -57,7 +65,7 @@ public class UIManeger : MonoBehaviour
 
 
     }
-    
+
 
     // ターンプレイヤー表示
     public void TurnPlayerDisplay(int turnPlayerIndex)
@@ -93,6 +101,7 @@ public class UIManeger : MonoBehaviour
     //駒セレクト画面表示
     public void OpenKomaSelectPanel()
     {
+        mainCamera.transform.position = new Vector3(-2f, 99f, 0f);
         junbanGamen.SetActive(false);
 
         komaSentakuPanel.SetActive(true);
@@ -101,7 +110,8 @@ public class UIManeger : MonoBehaviour
     }
 
     //駒セレクト画面非表示
-    public void CloseKomaSelectPanel(){
+    public void CloseKomaSelectPanel()
+    {
         komaSentakuPanel.SetActive(false);
         sentakuKomaObj.SetActive(false);
 
@@ -139,7 +149,10 @@ public class UIManeger : MonoBehaviour
     //ゲーム開始時の各プレイヤーのUI生成
     public void GameStartPlayerUIRender()
     {
+        turnAnouce.SetActive(true);
+        diceGamen.SetActive(true);
+        diceStartBtn.SetActive(true);
+        diceBtn.SetActive(true);
 
-        //Instantiate(playerKojinStatusPanel, Vector3.zero, Quaternion.identity);
     }
 }
