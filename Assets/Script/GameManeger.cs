@@ -7,13 +7,15 @@ using TMPro;
 
 public class GameManeger : MonoBehaviour
 {
+    // prefab
     public GameObject panelPrefab;
     public GameObject plusPanelPrefab;
     public GameObject minusPanelPrefab;
     public GameObject yasumiPanelPrefab;
-
-
     public GameObject playerPrefab;
+
+
+
     public GameObject[] playerList = new GameObject[4];
     public string[] playerNameList;
     public Camera mainCamera;

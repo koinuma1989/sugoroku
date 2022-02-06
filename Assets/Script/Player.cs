@@ -8,26 +8,26 @@ using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
-    public int currentMasuListIndex; // 今現在いる場所。マス配列のindex番号
+    // プレイヤーの状態関連
+    public int currentMasu; // 今現在いる場所。マス配列のindex番号
+    public int status; //状態
 
-    public string playerName;
-
+    //　プレイヤーのステータス
+    public string playerName; 
     public GameObject koma;
-
     public int junban;
+    public int money; //所持している現金
 
-    public int money;
 
     private GameObject eventManegerObj;
     private GameObject gameManegerObj;
 
     public Text eventText;
-    public int status;
 
 
     private void Start()
     {
-        currentMasuListIndex = 0; // 初期位置
+        currentMasu = 0; // 初期位置
 
         eventManegerObj = GameObject.Find("EventManeger");
         gameManegerObj = GameObject.Find("GameManeger");
@@ -43,27 +43,27 @@ public class Player : MonoBehaviour
     public IEnumerator Move(int diceNum)
     {
         // 現在の場所からダイスの数だけマス配列を一つずつ進める
-        for (int diceAddIndex = currentMasuListIndex + diceNum; diceAddIndex - currentMasuListIndex >= 1;)
+        for (int diceAddIndex = currentMasu + diceNum; diceAddIndex - currentMasu >= 1;)
         {
             // 1マス進める
-            currentMasuListIndex++;
+            currentMasu++;
 
             //勝利判定
             bool isVictory = false;
-            if (currentMasuListIndex == 16)
+            if (currentMasu == 16)
             {
-                currentMasuListIndex = 0;
+                currentMasu = 0;
                 isVictory = true;
             }
             //// 16マスなのでindexが15を超える場合の処理
-            //if (currentMasuListIndex == 16)
+            //if (currentMasu == 16)
             //{
             //    diceAddIndex = 15 - diceAddIndex;
-            //    currentMasuListIndex = 0;
+            //    currentMasu = 0;
             //}
 
             // indexから紐づくposをget
-            Vector3 currentPos = MapGenerate.mapVector3Array[currentMasuListIndex];
+            Vector3 currentPos = MapGenerate.mapVector3Array[currentMasu];
 
             // 移動アニメーション、0.3fかけてcurrentPositionに移動
             koma.transform.DOLocalMove(currentPos, 0.3f);
@@ -82,7 +82,7 @@ public class Player : MonoBehaviour
         }
 
         //止まったマスのイベントが発生
-        bool isEventStop = eventManegerObj.GetComponent<EventManager>().EventStart(currentMasuListIndex);
+        bool isEventStop = eventManegerObj.GetComponent<EventManager>().EventStart(currentMasu);
         gameManegerObj.GetComponent<GameManeger>().playerGaOnajiMasuNotokiIchiChosei();
 
 
@@ -105,13 +105,13 @@ public class Player : MonoBehaviour
     public IEnumerator MinusMove(int diceNum)
     {
         // 現在の場所からダイスの数だけマス配列を一つずつ戻る
-        for (int diceAddIndex = currentMasuListIndex - diceNum; diceAddIndex - currentMasuListIndex != 0;)
+        for (int diceAddIndex = currentMasu - diceNum; diceAddIndex - currentMasu != 0;)
         {
             // 1マス戻る
-            currentMasuListIndex--;
+            currentMasu--;
 
             // indexから紐づくposをget
-            Vector3 currentPos = MapGenerate.mapVector3Array[currentMasuListIndex];
+            Vector3 currentPos = MapGenerate.mapVector3Array[currentMasu];
 
             // 移動アニメーション、0.3fかけてcurrentPositionに移動
             koma.transform.DOLocalMove(currentPos, 0.3f);
@@ -121,7 +121,7 @@ public class Player : MonoBehaviour
         }
 
         //止まったマスのイベントが発生
-        bool isEventStop = eventManegerObj.GetComponent<EventManager>().EventStart(currentMasuListIndex);
+        bool isEventStop = eventManegerObj.GetComponent<EventManager>().EventStart(currentMasu);
         gameManegerObj.GetComponent<GameManeger>().playerGaOnajiMasuNotokiIchiChosei();
 
 
