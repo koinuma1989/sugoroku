@@ -87,6 +87,7 @@
     <Compile Include="Assets\Modern UI Pack\Scripts\UIGradient.cs" />
     <Compile Include="Assets\Script\CameraObject.cs" />
     <Compile Include="Assets\Script\Common.cs" />
+    <Compile Include="Assets\Script\Const.cs" />
     <Compile Include="Assets\Script\Dice.cs" />
     <Compile Include="Assets\Script\EventManager.cs" />
     <Compile Include="Assets\Script\GameManeger.cs" />
@@ -96,6 +97,7 @@
     <Compile Include="Assets\Script\Masu.cs" />
     <Compile Include="Assets\Script\Move.cs" />
     <Compile Include="Assets\Script\Player.cs" />
+    <Compile Include="Assets\Script\PlayerManeger.cs" />
     <Compile Include="Assets\Script\SentakuSareruKoma.cs" />
     <Compile Include="Assets\Script\StartSceneManeger.cs" />
     <Compile Include="Assets\Script\UIManeger.cs" />

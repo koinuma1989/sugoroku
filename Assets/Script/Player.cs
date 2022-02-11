@@ -8,31 +8,22 @@ using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
-    // プレイヤーの状態関連
-    public int currentMasu; // 今現在いる場所。マス配列のindex番号
-    public int status; //状態
+    // プレイヤーの現在のマス番号
+    public int currentMasu;
 
-    //　プレイヤーのステータス
+    //　プレイヤーのステータス関連
     public string playerName; 
     public GameObject koma;
-    public int junban;
-    public int money; //所持している現金
-
-
-    private GameObject eventManegerObj;
-    private GameObject gameManegerObj;
-
-    public Text eventText;
+    public int turn;
+    public int money;
+    public int[] assets = new int[30]; //資産、各土地と釈放権を数字で表現
+    
 
 
     private void Start()
     {
         currentMasu = 0; // 初期位置
-
-        eventManegerObj = GameObject.Find("EventManeger");
-        gameManegerObj = GameObject.Find("GameManeger");
-
-        status = 0;
+        money = 1500;
     }
 
     public void MoveStart(int diceNum)
@@ -63,7 +54,8 @@ public class Player : MonoBehaviour
             //}
 
             // indexから紐づくposをget
-            Vector3 currentPos = MapGenerate.mapVector3Array[currentMasu];
+            Vector3 currentPos = new Vector3(0, 0, 0);
+                //MapGenerate.mapVector3Array[currentMasu];
 
             // 移動アニメーション、0.3fかけてcurrentPositionに移動
             koma.transform.DOLocalMove(currentPos, 0.3f);
@@ -111,7 +103,8 @@ public class Player : MonoBehaviour
             currentMasu--;
 
             // indexから紐づくposをget
-            Vector3 currentPos = MapGenerate.mapVector3Array[currentMasu];
+            Vector3 currentPos = new Vector3(0, 0, 0);
+                //MapGenerate.mapVector3Array[currentMasu];
 
             // 移動アニメーション、0.3fかけてcurrentPositionに移動
             koma.transform.DOLocalMove(currentPos, 0.3f);

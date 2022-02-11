@@ -4,29 +4,8 @@ using UnityEngine;
 
 public class MapGenerate : MonoBehaviour
 {
-    // Mapのマスprefab
-
-
-
-    // 1辺11マスのモノポリーマップの情報[マスのpos,マスの種類,誰の所有物か,抵当かどうか,家が何件立ってるか、ホテルが何件立ってるか]
-    public static Masu[] mapVector3Array = new Masu[40] {
-        new Masu{pos = new Vector3(0, 0, 0),  },
-        new Vector3( -1f, 0f, 0f ),
-        new Vector3( -2f, 0f, 0f ),
-        new Vector3( -3f, 0f, 0f ),
-        new Vector3( -4f, 0f, 0f ),
-        new Vector3( -4f, 0f, 1f ),
-        new Vector3( -4f, 0f, 2f ),
-        new Vector3( -4f, 0f, 3f ),
-        new Vector3( -4f, 0f, 4f ),
-        new Vector3( -3f, 0f, 4f ),
-        new Vector3( -2f, 0f, 4f ),
-        new Vector3( -1f, 0f, 4f ),
-        new Vector3( 0f, 0f, 4f ),
-        new Vector3( 0f, 0f, 3f ),
-        new Vector3( 0f, 0f, 2f ),
-        new Vector3( 0f, 0f, 1f )
-    };
+    //マップ
+    public GameObject[] mapList = new GameObject[40];
 
     public static int[] masuEventList = new int[16] //マスのイベントID
     {

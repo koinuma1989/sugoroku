@@ -7,12 +7,14 @@ using TMPro;
 
 public class GameManeger : MonoBehaviour
 {
-    // prefab
-    public GameObject panelPrefab;
-    public GameObject plusPanelPrefab;
-    public GameObject minusPanelPrefab;
-    public GameObject yasumiPanelPrefab;
-    public GameObject playerPrefab;
+    /*
+     * GameManegerの役割
+     * 
+     * ゲーム開始時のプレイヤーの生成
+     * ゲーム開始時のマップの生成
+     * 
+     */
+    
 
 
 
@@ -83,8 +85,6 @@ public class GameManeger : MonoBehaviour
     //メインのゲーム開始
     public void StartMainGame()
     {
-        //mapの生成
-        mapCreate();
 
         //駒の配置
         foreach (GameObject player in playerList)
@@ -111,42 +111,7 @@ public class GameManeger : MonoBehaviour
 
     }
 
-    // map生成
-    private void mapCreate()
-    {
-        int count = 0;
-        foreach (Vector3 pos in MapGenerate.mapVector3Array)
-        {
-            if (count == 1 || count == 12)
-            {
-                Instantiate(plusPanelPrefab, pos, new Quaternion(0, 180f, 0f, 0f));
-                count++;
-
-                continue;
-            }
-            else if (count == 3 || count == 8)
-            {
-                Instantiate(yasumiPanelPrefab, pos, new Quaternion(0, 180f, 0f, 0f));
-                count++;
-
-                continue;
-            }
-            else if (count == 7 || count == 13)
-            {
-                Instantiate(minusPanelPrefab, pos, new Quaternion(0, 180f, 0f, 0f));
-                count++;
-
-                continue;
-            }
-            else
-            {
-                Instantiate(panelPrefab, pos, Quaternion.identity);
-                count++;
-
-                continue;
-            }
-        }
-    }
+   
 
     // playerの名前をインサート
     public void InsertPlayerName()
@@ -196,30 +161,23 @@ public class GameManeger : MonoBehaviour
         }
     }
 
-    // player生成
-    public void CreatePlayer(int playerNinzu)
-    {
-        for (int index = 0; index < playerNinzu; index++)
-        {
-            playerList[index] = Instantiate(playerPrefab, new Vector3(0, 0, 0), Quaternion.identity);
-        }
-    }
 
 
     // とりあえずこれ動かしとけば同じマスの時とか位置を調整できる
     public void playerGaOnajiMasuNotokiIchiChosei()
     {
         int[] playerIndexList = new int[] {
-            playerList[0].GetComponent<Player>().currentMasuListIndex,
-            playerList[1].GetComponent<Player>().currentMasuListIndex,
-            playerList[2].GetComponent<Player>().currentMasuListIndex,
-            playerList[3].GetComponent<Player>().currentMasuListIndex,
+            //playerList[0].GetComponent<Player>().currentMasuListIndex,
+            //playerList[1].GetComponent<Player>().currentMasuListIndex,
+            //playerList[2].GetComponent<Player>().currentMasuListIndex,
+            //playerList[3].GetComponent<Player>().currentMasuListIndex,
         };
 
         // 最初に全員の位置を現在いるマスの中心に戻す
         for (int playerNo = 0; playerNo < 4; playerNo++)
         {
-            playerList[playerNo].GetComponent<Player>().koma.transform.position = MapGenerate.mapVector3Array[playerList[playerNo].GetComponent<Player>().currentMasuListIndex];
+            playerList[playerNo].GetComponent<Player>().koma.transform.position = new Vector3(0, 0, 0);
+                //MapGenerate.mapVector3Array[playerList[playerNo].GetComponent<Player>().currentMasuListIndex];
         }
 
         List<int> jogaiList = new List<int>();
